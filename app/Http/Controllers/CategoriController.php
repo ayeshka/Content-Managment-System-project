@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Categary;
 use Illuminate\Http\Request;
+
 
 class CategoriController extends Controller
 {
@@ -13,7 +14,7 @@ class CategoriController extends Controller
      */
     public function index()
     {
-        return view('category.index');
+        return view('category.index')->with('categories', Categary::all());
     }
 
     /**
@@ -34,7 +35,18 @@ class CategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'name' => 'required|unique:categaries'          //name should be unique to categories table
+
+        ]);
+
+        Categary::create([              // when you use the this methode , you should have to cteate a fillable inside the model
+           'name' => $request -> name
+        ]);
+
+        session()->flash('success', 'Category create successfuly'); // successefuly alert
+
+        return redirect(route('categories.index'));
     }
 
     /**
