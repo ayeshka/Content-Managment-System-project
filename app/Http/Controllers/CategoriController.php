@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Categary;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateCategoryRequest;
 
 
 class CategoriController extends Controller
@@ -33,12 +34,9 @@ class CategoriController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
-        $this->validate($request, [
-          'name' => 'required|unique:categaries'          //name should be unique to categories table
 
-        ]);
 
         Categary::create([              // when you use the this methode , you should have to cteate a fillable inside the model
            'name' => $request -> name
