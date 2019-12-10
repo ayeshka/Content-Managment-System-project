@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Categary;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
+use App\Http\Requests\Category\UpdateRequest;
 
 
 class CategoriController extends Controller
@@ -38,9 +39,7 @@ class CategoriController extends Controller
     {
 
 
-        Categary::create([              // when you use the this methode , you should have to cteate a fillable inside the model
-           'name' => $request -> name
-        ]);
+
 
         session()->flash('success', 'Category create successfuly'); // successefuly alert
 
@@ -64,9 +63,10 @@ class CategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Categary $category)   //here categoy is the selected category and here instanse name should be the route name in the web.api or route list
     {
-        //
+        // $categories = Categary::find($categoriesId);
+        return view('category.create')->with('categories', $category);
     }
 
     /**
@@ -76,9 +76,17 @@ class CategoriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request,Categary $category )
     {
-        //
+        // $category->name = $request->name;
+        // $category->save();
+
+        $category->update([      // we can update using this way
+        'name' => $request->name
+        ]);
+
+        session()->flash('success','Category update successfuly');
+        return redirect(route('categories.index'));
     }
 
     /**
