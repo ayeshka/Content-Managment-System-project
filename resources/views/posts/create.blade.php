@@ -6,7 +6,8 @@
     Add Post
     </div>
     <div class="card-body">
-    <form action="{{ route('posts.store') }}" method="POST">
+    <!-- we have to add enctype in the form if we not the multimedia in the form it's not going to be submitted to the server-->
+    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
    <div class="form-group">
    <label for="title">Title</label>

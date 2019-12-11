@@ -15,6 +15,13 @@ return [
 
     'default' => env('FILESYSTEM_DRIVER', 'local'),
 
+    // default this use local driver
+    // env function get enviroment variable from .env and it use that to configer our application
+    // but what we can see here is it's getting an enviroment variable called filesystem_driver and if that enviroment variable not provided you use this local
+    // and this case the local drive is secure which means we can not see image from local drive
+    // but if we change the Filesystem_deiver in .env as public then we can see public folder create in the storage folder and default file system is public
+    // which means we would be able to priview image and show that image to the user
+
     /*
     |--------------------------------------------------------------------------
     | Default Cloud Filesystem Disk
