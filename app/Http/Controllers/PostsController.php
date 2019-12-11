@@ -100,12 +100,44 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        $post->delete();
 
-        session()->flash('success','Post Trash Successfully');
+        // when we use route model binding laravel try to find this post from database which means route model binding can not help us in this case
+        // so what we want to do is simply take a id which means not use route model binding and faind our post on sourse
+
+        $post = Post::withTrashed()->where('id', $id)->firstorFail();
+
+        // using firstorFail method if it does not find a record it's going to throw and exception and laravel going to catch that exception and show us to all for four pages
+        // so we automatically see for all four pages when the user trying to delete  a post dosen't exist
+
+        if ($post->trashed())
+        {
+            $post->forceDelete();
+        }
+        else{
+            $post->delete();
+        }
+
+
+        session()->flash('success','Post Delete Successfully');
 
          return redirect(route('posts.index'));
+    }
+
+      /**
+     * Display a list of trush posts.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function trashed(){
+
+        $trushed = Post::withTrashed()->get();
+
+
+       // return view('posts.index')->withPosts($trushed);
+         return view('posts.index')->with('posts',$trushed);
+
     }
 }

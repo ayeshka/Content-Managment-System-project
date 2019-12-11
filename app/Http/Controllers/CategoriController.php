@@ -39,7 +39,9 @@ class CategoriController extends Controller
     {
 
 
-
+        Categary::create([
+            'name' => $request->name
+        ]);
 
         session()->flash('success', 'Category create successfuly'); // successefuly alert
 

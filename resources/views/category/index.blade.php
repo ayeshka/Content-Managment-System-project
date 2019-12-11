@@ -10,6 +10,7 @@
 Categories
 </div>
 <div class="card-body">
+@if($categories->count() > 0)
 <table class="table">
 <thead>
 <th>Name</th>
@@ -29,6 +30,11 @@ Categories
 @endforeach
 </tbody>
 </table>
+@else
+<h3 class="text-center">No Categoties Yet</h3>
+@endif
+
+
 
 
 <!-- Modal -->

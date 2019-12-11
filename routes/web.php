@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('categories','CategoriController');
 Route::resource('posts','PostsController');
+
+Route::get('trush_post','PostsController@trashed')->name('trashed-posts.index');
