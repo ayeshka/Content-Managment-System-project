@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\Posts\PostsCreatingRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -113,6 +114,7 @@ class PostsController extends Controller
 
         if ($post->trashed())
         {
+            Storage::delete($post->image);  // when we delete the  permenantly,  image should also delete in the storage
             $post->forceDelete();
         }
         else{
@@ -138,6 +140,7 @@ class PostsController extends Controller
 
        // return view('posts.index')->withPosts($trushed);
          return view('posts.index')->with('posts',$trushed);
+         //As noted above, soft deleted models will automatically be excluded from query results. However, you may force soft deleted models to appear in a result set using the withTrashed method on the query:
 
     }
 }
