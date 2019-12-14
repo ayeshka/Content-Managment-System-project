@@ -94,19 +94,19 @@ class PostsController extends Controller
      */
     public function update(UpdatePostRequest $request,Post $post)
     {
-        $data = $request->only(['title','description','content','published_at']); // upload attributes
+        $data = $request->only(['title','description','published_at', 'content']); // upload attributes
 
         //check if new image
-        if($request->hasFile('image'))
+        if($request->hasFile('image')){
 
-        $image = $request->image->store('posts'); // upload new image
-
-
+            $image = $request->image->store('posts'); // upload new image
 
 
-        Storage::delete($post->image); // delete old image from storage
+            $post->deleteimage(); // delete old image from storage
 
-        $data['image'] = $image;
+            $data['image'] = $image;
+        }
+
 
 
         $post->update($data); // update data
@@ -137,7 +137,7 @@ class PostsController extends Controller
 
         if ($post->trashed())
         {
-            Storage::delete($post->image);  // when we delete the  permenantly,  image should also delete in the storage
+            $post->deleteimage();  // when we delete the  permenantly,  image should also delete in the storage
             $post->forceDelete();
         }
         else{
@@ -158,12 +158,22 @@ class PostsController extends Controller
 
     public function trashed(){
 
-        $trushed = Post::withTrashed()->get();
+        $trushed = Post::onlyTrashed()->get(); // get us only the trashed post
 
 
        // return view('posts.index')->withPosts($trushed);
          return view('posts.index')->with('posts',$trushed);
          //As noted above, soft deleted models will automatically be excluded from query results. However, you may force soft deleted models to appear in a result set using the withTrashed method on the query:
 
+    }
+
+    public function restore($id) {
+
+    $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+    $post->restore(); // restore the post
+
+    session()->flash('success','Post Restore Successfully');
+
+    return redirect()->back();
     }
 }

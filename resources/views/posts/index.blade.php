@@ -31,7 +31,17 @@ it's link both public folder-->
 <img src="{{ asset('storage/'.$post->image) }}" width="120px" height="60px" alt="image">
 </td>
 <td>{{$post->title}}</td>
-@if(!$post->trashed())
+@if($post->trashed())
+<td>
+<form action="{{ route('restore-posts', $post->id )}}" method="POST">
+@csrf
+@method('PUT')
+<button class="btn btn-info btn-sm" type="submit">Restore</button>
+</form>
+
+
+</td>
+@else
 <td>
 <a href="{{ route('posts.edit', $post->id )}}" class="btn btn-info btn-sm">Edit</a>
 </td>

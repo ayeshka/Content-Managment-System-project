@@ -19,6 +19,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 
+    <style>
+    .btn-info{
+        color: aliceblue;
+    }
+    </style>
     @yield('css')
 </head>
 <body>
