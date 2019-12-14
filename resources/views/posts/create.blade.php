@@ -3,36 +3,46 @@
 @section('content')
 <div class="card card-default">
     <div class="card-header">
-    Add Post
+   {{ isset($posts) ? 'Edite Post' : 'Add Post'}}
     </div>
     <div class="card-body">
     <!-- we have to add enctype in the form if we not the multimedia in the form it's not going to be submitted to the server-->
-    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ isset($posts) ? route('posts.update', $posts->id) : route('posts.create') }}" method="POST" enctype="multipart/form-data">
     @csrf
+    @if($posts)
+     @method('PUT')
+    @endif
    <div class="form-group">
    <label for="title">Title</label>
-   <input type="text" class="form-control" name="title" id="title">
+   <input type="text" class="form-control" name="title" id="title" value="{{ isset($posts) ? $posts->title : ''}}">
    </div>
    <div class="form-group">
    <label for="description">Description</label>
-   <textarea name="description" id="description" cols="5" rows="5" class="form-control"></textarea>
+   <textarea name="description" id="description" cols="5" rows="5" class="form-control" >{{ isset($posts) ? $posts->description : ''}}</textarea>
    </div>
    <div class="form-group">
    <label for="content">Content</label>
    {{-- https://github.com/basecamp/trix "trix edditer "--}}
-   <input id="content" type="hidden" name="content">
+   <input id="content" type="hidden" name="content"value="{{ isset($posts) ? $posts->content : ''}}">
   <trix-editor input="content"></trix-editor>
    </div>
+   @if($posts)
+   <div class="form-group">
+       <img src="{{asset('storage/'.$posts->image) }}" alt="" width="100%" >
+   </div>
+   @endif
    <div class="form-group">
    <label for="image">Image</label>
    <input type="file" class="form-control" name="image" id="image">
    </div>
    <div class="form-group">
    <label for="publish_at">Publish At</label>
-   <input type="publish_at" class="form-control" id="publish_at" name="publish_at">
+   <input type="publish_at" class="form-control" id="publish_at" name="publish_at" value="{{ isset($posts) ? $posts->published_at : ''}}">
    </div>
    <div class="form-group">
-   <button type="submit" class="btn btn-success">Create Post</button>
+   <button type="submit" class="btn btn-success">
+       {{ isset($posts) ? 'Update Post' : 'Create Post'}}
+   </button>
    </div>
     </form>
     </div>
