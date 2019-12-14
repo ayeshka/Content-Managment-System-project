@@ -19,7 +19,9 @@
    </div>
    <div class="form-group">
    <label for="content">Content</label>
-   <textarea name="content" id="content" cols="5" rows="5" class="form-control"></textarea>
+   {{-- https://github.com/basecamp/trix "trix edditer "--}}
+   <input id="content" type="hidden" name="content">
+  <trix-editor input="content"></trix-editor>
    </div>
    <div class="form-group">
    <label for="image">Image</label>
@@ -37,4 +39,34 @@
 </div>
 
 @endsection
+
+@section('scripts')
+{{-- eddit trix library --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.js"></script>
+{{-- from https://cdnjs.com/libraries/trix   "cdn trix"  --}}
+
+
+{{-- flatpiker library --}}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+{{-- from https://flatpickr.js.org/getting-started/ --}}
+
+<script>
+
+flatpickr('#publish_at', {   // this publish_at is id of the input of the Publish At input
+enableTime: true // if we wont time we can pass the this object to the flatpikr function
+})
+</script>
+@endsection
+
+@section('css')
+{{-- eddit trix library --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.css">
+{{-- from https://cdnjs.com/libraries/trix   "cdn trix"  --}}
+
+{{-- flatpiker library --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{{-- from https://flatpickr.js.org/getting-started/ --}}
+@endsection
+
+
 
