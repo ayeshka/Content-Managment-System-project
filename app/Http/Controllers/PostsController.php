@@ -94,7 +94,8 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-      return view('posts.create')->with('posts', $post)->with('categorys', Categary::all());
+       // dd($post->tags->pluck('id')->toArray());
+      return view('posts.create')->with('posts', $post)->with('categorys', Categary::all())->with('tags', Tag::all());
     }
 
     /**
@@ -119,6 +120,21 @@ class PostsController extends Controller
             $data['image'] = $image;
         }
 
+        if($request->tags){
+            $post->tags()->sync($request->tags);
+
+            /**
+             * this sync method is healpful method for many to many relationship
+             * what is gonna do is it's just going to check the requrest tag fo the form if this tag
+             * where already attached to those post  then it's just gonna leave them at that but
+             *if threr are any tag from the form that where not attached
+             *then is gonna attach them but then those where not selected is gonna attach them
+             *
+             *
+             *
+             *
+             */
+        }
 
 
         $post->update($data); // update data

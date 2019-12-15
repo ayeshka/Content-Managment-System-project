@@ -41,4 +41,13 @@ class Post extends Model
     public function tags(){ // many to many relationship function name should be plural
     return $this->belongsToMany(Tag::class);
     }
+
+    /**
+     * check if post has tag
+     * @return boolean
+     */
+    public function hasTag($tagId)
+    {
+      return in_array($tagId, $this->tags->pluck('id')->toArray()); // check whether tagId is in the arry , if it is in return true elase return false
+    }
 }
