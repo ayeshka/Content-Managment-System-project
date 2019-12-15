@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Categary;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -20,11 +21,20 @@ class Post extends Model
     use SoftDeletes;
 
     protected  $fillable = [                     // create a property colled protected
-      'title', 'description', 'content', 'image', 'published_at'
+      'title', 'description', 'content', 'image', 'published_at', 'categary_id'
     ];
 
+    /**
+     *
+     * @return void
+     */
 
     public function deleteimage(){
         Storage::delete($this->image);
+    }
+
+    public function categary(){  // define a relationship  ,funtion name should be name of the model, posts belongs to category
+     return $this->belongsTo(Categary::class );
+     // return $this->belongsTo('App\Categary');
     }
 }

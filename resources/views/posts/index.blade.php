@@ -18,6 +18,7 @@ Posts
 <thead>
 <th>Image</th>
 <th>Title</th>
+<th>Category</th>
 </thead>
 <tbody>
 @foreach($posts as $post)
@@ -31,6 +32,10 @@ it's link both public folder-->
 <img src="{{ asset('storage/'.$post->image) }}" width="120px" height="60px" alt="image">
 </td>
 <td>{{$post->title}}</td>
+<td>
+    <a href="{{ route('categories.edit',$post->id)}}">{{ $post->categary->name}}</a>
+
+</td>
 @if($post->trashed())
 <td>
 <form action="{{ route('restore-posts', $post->id )}}" method="POST">

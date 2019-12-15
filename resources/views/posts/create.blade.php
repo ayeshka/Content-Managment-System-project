@@ -7,9 +7,9 @@
     </div>
     <div class="card-body">
     <!-- we have to add enctype in the form if we not the multimedia in the form it's not going to be submitted to the server-->
-    <form action="{{ isset($posts) ? route('posts.update', $posts->id) : route('posts.create') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ isset($posts) ? route('posts.update', $posts->id) : route('posts.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @if($posts)
+    @if(isset($posts))
      @method('PUT')
     @endif
    <div class="form-group">
@@ -26,7 +26,7 @@
    <input id="content" type="hidden" name="content"value="{{ isset($posts) ? $posts->content : ''}}">
   <trix-editor input="content"></trix-editor>
    </div>
-   @if($posts)
+   @if(isset($posts))
    <div class="form-group">
        <img src="{{asset('storage/'.$posts->image) }}" alt="" width="100%" >
    </div>
@@ -35,6 +35,25 @@
    <label for="image">Image</label>
    <input type="file" class="form-control" name="image" id="image">
    </div>
+
+   <div class="form-group">
+       <label for="category">Category</label>
+       <select name="category" id="category" class="form-control">
+           @foreach($categorys as $category)
+           <option value="{{ $category->id}}"
+            @if(isset($posts))
+            @if($category->id === $posts->categary_id)
+            selected
+            @endif
+            @endif
+            >
+          {{ $category-> name}}
+        </option>
+           @endforeach
+
+       </select>
+   </div>
+
    <div class="form-group">
    <label for="publish_at">Publish At</label>
    <input type="publish_at" class="form-control" id="publish_at" name="publish_at" value="{{ isset($posts) ? $posts->published_at : ''}}">

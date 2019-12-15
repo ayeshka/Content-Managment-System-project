@@ -14,13 +14,18 @@ Categories
 <table class="table">
 <thead>
 <th>Name</th>
+<th>Post Count</th>
 <th></th>
 </thead>
 <tbody>
 @foreach($categories as $category)
 <tr>
 <td>
-{{ $category -> name}}
+{{ $category-> name}}
+</td>
+<td>
+    {{-- count the posts int the database relevent the category helping posts method in the Category model --}}
+{{ $category->posts->count()}}
 </td>
 <td>
 <a href="{{route('categories.edit', $category->id)}}" class="btn btn-info btn-sm">Edit</a>
