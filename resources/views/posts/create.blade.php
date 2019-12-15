@@ -62,7 +62,7 @@
    @if($tags->count() > 0)
    <div class="form-group">
     <label for="tags">Tags</label>
-    <select name="tags[]" id="tags" class="form-control" multiple>
+    <select name="tags[]" id="tags" class="form-control tags-selector" multiple>
         @foreach($tags as $tag)
      <option value="{{ $tag->id }}"
 
@@ -100,10 +100,17 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 {{-- from https://flatpickr.js.org/getting-started/ --}}
 
+{{-- select2 --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
 <script>
 
 flatpickr('#publish_at', {   // this publish_at is id of the input of the Publish At input
 enableTime: true // if we wont time we can pass the this object to the flatpikr function
+})
+
+$(document).ready(function() {
+    $('.tags-selector').select2();
 })
 </script>
 @endsection
@@ -116,6 +123,9 @@ enableTime: true // if we wont time we can pass the this object to the flatpikr 
 {{-- flatpiker library --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 {{-- from https://flatpickr.js.org/getting-started/ --}}
+
+{{-- select2 --}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 
