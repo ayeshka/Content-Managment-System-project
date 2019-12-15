@@ -19,9 +19,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('categories','CategoriController');
-Route::resource('posts','PostsController')->middleware(['auth']); // if user authenticated then user can visit this route
 
-Route::get('trush_post','PostsController@trashed')->name('trashed-posts.index');
-Route::put('restore-post/{post}', 'PostsController@restore')->name('restore-posts');
+// when we want to add middeware to the all this routes the we can use route group like this
+Route::middleware(['auth'])->group(function() {   // if user authenticated then user can visit this route
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('categories','CategoriController');
+    Route::resource('posts','PostsController');
+
+    Route::get('trush_post','PostsController@trashed')->name('trashed-posts.index');
+    Route::put('restore-post/{post}', 'PostsController@restore')->name('restore-posts');
+});
