@@ -14,6 +14,11 @@ class PostsController extends Controller
 
 // php artisan make:controller PostsController --resource
 
+    public function __construct(){
+        $this->middleware('verifyCategoryCount')->only(['create','store']);// You may even restrict the middleware to only certain methods on the controller class
+        // here create and store in the only methode is method of the PostController class
+    }
+
     /**
      * Display a listing of the resource.
      *
