@@ -10,17 +10,8 @@
 <div class="card-body">
 
 <!-- Show a error massege -->
-@if($errors->any())
-<div class="alert alert-danger">
-<ul class="list-group">
-@foreach($errors->all() as $error)
-<li class="list-group-item text-danger">{{ $error }}</li>
-@endforeach
-</ul>
+@include('partial.errors')
 
-
-</div>
-@endif
 <form action="{{ isset($tags) ? route('tags.update', $tags->id ) : route('tags.store')}}" method="POST">
 <!-- this is the token -->
 @csrf
