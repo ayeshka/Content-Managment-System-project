@@ -18,7 +18,8 @@ class VerifyCategoryCount
     {
 
         if(Categary::all()->count() === 0) { // count the category in the database
-             return redirect()->back();  // redirect the back
+            session()->flash('error','You need to add categoties to be able to create a post.');
+             return redirect(route('categories.create'));  // redirect to the category.category page
         }
         return $next($request); // if category have the database then gohead
     }
