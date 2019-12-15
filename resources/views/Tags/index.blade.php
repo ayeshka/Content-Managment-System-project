@@ -24,8 +24,8 @@ Tags
 {{ $tag-> name}}
 </td>
 <td>
-    {{-- count the posts int the database relevent the category helping posts method in the Category model --}}
-{{ 0 }}
+    {{-- count the number of post belongs to tags --}}
+ {{ $tag->posts->count()}}
 </td>
 <td>
 <a href="{{route('tags.edit', $tag->id)}}" class="btn btn-info btn-sm">Edit</a>

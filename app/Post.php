@@ -37,4 +37,8 @@ class Post extends Model
      return $this->belongsTo(Categary::class );
      // return $this->belongsTo('App\Categary');
     }
+
+    public function tags(){ // many to many relationship function name should be plural
+    return $this->belongsToMany(Tag::class);
+    }
 }

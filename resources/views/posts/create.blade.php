@@ -59,6 +59,19 @@
    <label for="publish_at">Publish At</label>
    <input type="publish_at" class="form-control" id="publish_at" name="publish_at" value="{{ isset($posts) ? $posts->published_at : ''}}">
    </div>
+   @if($tags->count() > 0)
+   <div class="form-group">
+    <label for="tags">Tags</label>
+    <select name="tags[]" id="tags" class="form-control" multiple>
+        @foreach($tags as $tag)
+     <option value="{{ $tag->id }}">
+     {{$tag->name}}
+     </option>
+     @endforeach
+    </select>
+</div>
+   @endif
+
    <div class="form-group">
    <button type="submit" class="btn btn-success">
        {{ isset($posts) ? 'Update Post' : 'Create Post'}}

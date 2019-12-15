@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use App\Categary;
 use Illuminate\Http\Request;
 use App\Http\Requests\Posts\PostsCreatingRequest;
@@ -36,7 +37,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('categorys', Categary::all());
+        return view('posts.create')->with('categorys', Categary::all())->with('tags', Tag::all());
     }
 
     /**
@@ -56,7 +57,7 @@ class PostsController extends Controller
 
       $image = $request->image->store('posts'); // assing image for use later and this image store the store folder
 
-       Post::create([
+     $post =  Post::create([
          'title' => $request->title,
          'description' => $request->description,
          'content' => $request->content,
@@ -64,6 +65,10 @@ class PostsController extends Controller
          'published_at' => $request->publish_at,
          'categary_id' => $request->category
        ]);
+
+       if($request->tags){
+           $post->tags()->attach($request->tags); // post and tag tables are attach according to tags id, like post_id 1 -> tags_id 2, post_id 1-> tags_id 3
+       }
 
        session()->flash('success','Post Create Successfully');
 
