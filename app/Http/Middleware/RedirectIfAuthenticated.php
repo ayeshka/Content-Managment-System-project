@@ -17,10 +17,10 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        if (Auth::guard($guard)->check()) { // if the user is logging
+            return redirect('/home'); // redirect the home page
         }
 
-        return $next($request);
+        return $next($request); // if the user is not loged in gohead to the next part of the application
     }
 }
