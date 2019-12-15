@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function() {   // if user authenticated then 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('categories','CategoriController');
     Route::resource('posts','PostsController');
-
+    Route::resource('tags','TagsController');
     Route::get('trush_post','PostsController@trashed')->name('trashed-posts.index');
     Route::put('restore-post/{post}', 'PostsController@restore')->name('restore-posts');
 });
