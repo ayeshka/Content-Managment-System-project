@@ -29,3 +29,9 @@ Route::middleware(['auth'])->group(function() {   // if user authenticated then 
     Route::get('trush_post','PostsController@trashed')->name('trashed-posts.index');
     Route::put('restore-post/{post}', 'PostsController@restore')->name('restore-posts');
 });
+
+
+   Route::middleware(['auth','admin'])->group(function() {
+    Route::get('user', 'UserController@index')->name('user.index');
+   });
+
