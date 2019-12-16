@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function() {   // if user authenticated then 
 
 
    Route::middleware(['auth','admin'])->group(function() {
-    Route::get('user', 'UserController@index')->name('user.index');
+    Route::get('user', 'UserController@index')->name('users.index');
+    Route::post('users/{user}/make-admin', 'UserController@makeAdmin')->name('users.make-admin');
    });
 
