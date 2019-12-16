@@ -23,7 +23,7 @@ Users
 @foreach($users as $user)
 <tr>
 <td>
-
+<img src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png" height="50px" width="50px" alt="">
 </td>
 <td>{{$user->name}}</td>
 <td>
