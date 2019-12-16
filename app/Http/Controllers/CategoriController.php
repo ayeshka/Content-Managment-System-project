@@ -67,6 +67,7 @@ class CategoriController extends Controller
      */
     public function edit(Categary $category)   //here categoy is the selected category and here instanse name should be the route name in the web.api or route list
     {
+
         // $categories = Categary::find($categoriesId);
         return view('category.create')->with('categories', $category);
     }
@@ -99,6 +100,14 @@ class CategoriController extends Controller
      */
     public function destroy(Categary $category)
     {
+        if($category->posts->count() > 0 )
+        {
+            session()->flash('error','Category can not be deleted becouse it has some post');
+
+            return redirect()->back();
+        }
+
+
         $category->delete();
 
         session()->flash('success','Category Delete Successfully');
