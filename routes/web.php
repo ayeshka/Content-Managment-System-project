@@ -12,6 +12,7 @@
 */
 
 Route::get('/','WelcomeController@welcome');
+Route::get('blog/posts/{post}','BlogController@show')->name('blog-post');
 
 
 

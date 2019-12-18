@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Categary;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -40,6 +41,11 @@ class Post extends Model
 
     public function tags(){ // many to many relationship function name should be plural
     return $this->belongsToMany(Tag::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
